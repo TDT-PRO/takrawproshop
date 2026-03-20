@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products - Takraw Pro Shop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h1>Takraw Pro Shop</h1>
+<nav>
+<a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<main>
+<h2>All Takraw Equipment</h2>
+
+<div class="products">
+
+<div class="product">
+<img src="images/takraw-ball.jpg" alt="Takraw Ball">
+<h3>Takraw Ball</h3>
+<p class="desc">Official rattan ball used in matches.</p>
+<p>₱250</p>
+<button onclick="addToCart('Takraw Ball',250)">Add</button>
+</div>
+
+<div class="product">
+<img src="images/takraw-net.jpg" alt="Takraw Net">
+<h3>Takraw Net</h3>
+<p class="desc">Durable professional net.</p>
+<p>₱1500</p>
+<button onclick="addToCart('Takraw Net',1500)">Add</button>
+</div>
+
+<div class="product">
+<img src="images/takraw-shoes.jpg" alt="Takraw Shoes">
+<h3>Takraw Shoes</h3>
+<p class="desc">Lightweight shoes for agility and jumping.</p>
+<select id="shoeColor">
+<option>Red</option>
+<option>Black</option>
+<option>Blue</option>
+</select>
+<p>₱2000</p>
+<button onclick="addToCart('Takraw Shoes',2000,document.getElementById('shoeColor').value)">Add</button>
+</div>
+
+<div class="product">
+<img src="images/ankle-support.jpg" alt="Ankle Support">
+<h3>Ankle Support</h3>
+<p class="desc">Protect your ankles during play.</p>
+<p>₱300</p>
+<button onclick="addToCart('Ankle Support',300)">Add</button>
+</div>
+
+<div class="product">
+<img src="images/training-cones.jpg" alt="Training Cones">
+<h3>Training Cones</h3>
+<p class="desc">Improve agility and footwork.</p>
+<p>₱400</p>
+<button onclick="addToCart('Training Cones',400)">Add</button>
+</div>
+
+</div>
+
+<section class="cart">
+<h2>🛒 Cart</h2>
+<ul id="cartList"></ul>
+<h3>Total: ₱<span id="total">0</span></h3>
+</section>
+
+<section class="checkout">
+<h2>🧾 Checkout</h2>
+<form onsubmit="placeOrder(event)">
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="text" id="phone" placeholder="Phone Number" required>
+<input type="text" id="address" placeholder="Address" required>
+
+<p>Payment Method:</p>
+<select id="payment" required>
+<option value="cod">Cash on Delivery</option>
+</select>
+
+<ul id="orderSummary"></ul>
+<h3>Total: ₱<span id="checkoutTotal">0</span></h3>
+<button type="submit">Confirm Order</button>
+</form>
+</section>
+
+</main>
+
+<footer>
+<p>© 2026 Takraw Pro Shop</p>
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveCart(){ localStorage.setItem("cart", JSON.stringify(cart)); }
+
+function addToCart(name, price, color=""){
+let item = cart.find(i=>i.name===name && i.color===color);
+if(item){item.qty++;}else{cart.push({name,price,qty:1,color});}
+saveCart(); renderCart();
+}
+
+function renderCart(){
+let cartList=document.getElementById("cartList");
+let summary=document.getElementById("orderSummary");
+let total=0;
+cartList.innerHTML=""; summary.innerHTML="";
+cart.forEach((item,i)=>{
+let li=document.createElement("li");
+li.innerHTML=`${item.name} ${item.color? "(" + item.color + ")" : ""} x ${item.qty} 
+<button onclick="changeQty(${i},1)">➕</button>
+<button onclick="changeQty(${i},-1)">➖</button>
+<button onclick="removeItem(${i})">❌</button>`;
+cartList.appendChild(li);
+let li2=document.createElement("li");
+li2.textContent=`${item.name} ${item.color? "(" + item.color + ")" : ""} x ${item.qty} = ₱${item.price*item.qty}`;
+summary.appendChild(li2);
+total+=item.price*item.qty;
+});
+document.getElementById("total").textContent=total;
+document.getElementById("checkoutTotal").textContent=total;
+}
+
+function changeQty(i,amt){ cart[i].qty+=amt; if(cart[i].qty<=0) cart.splice(i,1); saveCart(); renderCart(); }
+function removeItem(i){ cart.splice(i,1); saveCart(); renderCart(); }
+
+function placeOrder(e){
+e.preventDefault();
+if(cart.length===0){ alert("Cart empty!"); return; }
+
+localStorage.setItem("orderName", document.getElementById("name").value);
+localStorage.setItem("orderEmail", document.getElementById("email").value);
+localStorage.setItem("orderPhone", document.getElementById("phone").value);
+localStorage.setItem("orderAddress", document.getElementById("address").value);
+localStorage.setItem("orderPayment", document.getElementById("payment").value);
+localStorage.setItem("orderCart", JSON.stringify(cart));
+localStorage.removeItem("cart");
+
+window.location.href="order.html";
+}
+
+renderCart();
+</script>
+
+</body>
+</html>

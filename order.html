@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Takraw Pro Shop</h1></header>
+
+<main class="order-result">
+<h2>✅ Your Order Has Been Placed!</h2>
+
+<p><b>Name:</b> <span id="resName"></span></p>
+<p><b>Email:</b> <span id="resEmail"></span></p>
+<p><b>Phone:</b> <span id="resPhone"></span></p>
+<p><b>Address:</b> <span id="resAddress"></span></p>
+<p><b>Payment Method:</b> <span id="resPayment"></span></p>
+
+<h3>Items Ordered</h3>
+<ul id="resItems"></ul>
+<h3>Total: ₱<span id="resTotal"></span></h3>
+
+<a href="index.html"><button>Back Home</button></a>
+</main>
+
+<script>
+document.getElementById("resName").textContent = localStorage.getItem("orderName");
+document.getElementById("resEmail").textContent = localStorage.getItem("orderEmail");
+document.getElementById("resPhone").textContent = localStorage.getItem("orderPhone");
+document.getElementById("resAddress").textContent = localStorage.getItem("orderAddress");
+document.getElementById("resPayment").textContent = localStorage.getItem("orderPayment");
+
+let cart = JSON.parse(localStorage.getItem("orderCart")) || [];
+let resItems = document.getElementById("resItems");
+let total = 0;
+
+cart.forEach(item=>{
+let li = document.createElement("li");
+li.textContent = `${item.name} ${item.color? "(" + item.color + ")" : ""} x ${item.qty} = ₱${item.price*item.qty}`;
+resItems.appendChild(li);
+total += item.price*item.qty;
+});
+
+document.getElementById("resTotal").textContent = total;
+</script>
+
+</body>
+</html>
