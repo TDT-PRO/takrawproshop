@@ -1,76 +1,95 @@
-
 body {
     margin: 0;
-    font-family: 'arial', sans-serif;
-    color: #333;
+    font-family: 'Arial', sans-serif;
+    color: #4A3F35;
 
-    /* Full-page background logo */
     background: url('images/logo.jpg') no-repeat center center fixed;
     background-size: cover;
 
-    position: relative; /* ensures content stacks on top */
+    position: relative;
     z-index: 0;
 }
 
-/* Overlay to soften the background logo */
+/* Soft overlay (more pleasant) */
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(253,246,227,0.85); /* soft orange overlay */
-    z-index: -1; /* behind all content */
+    background: rgba(255,248,240,0.9); /* soft cream */
+    z-index: -1;
 }
 
-/* Header */
+/* HEADER */
 header {
-    background: rgba(193,154,107,0.9); /* yellow orange */
-    color: #333;
-    padding: 10px;
-    text-align: center;
+    background: rgba(246,230,211,0.95); /* soft beige */
+    color: #4A3F35;
+    padding: 12px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     position: sticky;
     top: 0;
     z-index: 10;
-    transition: background 0.3s;
 }
 
+/* LOGO LEFT */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo h1 {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* NAV */
 header nav a {
-    color: #333;
-    margin: 0 12px;
+    color: #4A3F35;
+    margin: 0 10px;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s;
+    transition: 0.3s;
 }
 
 header nav a:hover {
-    color: #C19A6B; /* accent on hover */
+    color: #E89B3A;
 }
 
-/* Buttons */
+/* BUTTONS */
 button {
     padding: 10px 15px;
-    background: #C19A6B; /* tan buttons */
-    color: #fff;
+    background: #E89B3A;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     margin: 5px;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #FFDAB9; /* lighter beige on hover */
-    color: #333;
+    background: #d17f20;
     transform: scale(1.05);
 }
 
-/* Hero section */
+/* HERO */
 .hero {
     text-align: center;
     padding: 60px 20px;
-    color: #C19A6B;
+    color: #E89B3A;
 }
 
-/* Products grid */
+/* PRODUCTS */
 .products {
     display: flex;
     flex-wrap: wrap;
@@ -80,40 +99,33 @@ button:hover {
 }
 
 .product {
-    background: rgba(253,246,227,0.95); /* cream product card */
+    background: #FFF8F0;
     padding: 15px;
     border-radius: 12px;
     text-align: center;
     width: 220px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
 }
 
 .product:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 
 .product img {
     width: 100%;
     border-radius: 8px;
-    transition: transform 0.3s;
-}
-
-.product img:hover {
-    transform: scale(1.05);
 }
 
 .product .desc {
     font-size: 0.9rem;
-    color: #555;
-    margin: 5px 0;
+    color: #666;
 }
 
-/* Cart & checkout */
-.cart,
-.checkout {
-    background: rgba(253,246,227,0.95);
+/* CART */
+.cart, .checkout {
+    background: #FFF8F0;
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
@@ -121,29 +133,33 @@ button:hover {
     max-width: 500px;
 }
 
+/* INPUTS */
 input, select, textarea {
     width: 100%;
     padding: 10px;
     margin: 6px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
-    font-family: 'Poppins', sans-serif;
 }
 
-/* Footer */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 15px;
-    background: rgba(193,154,107,0.9);
-    color: #333;
+    background: rgba(246,230,211,0.95);
+    color: #4A3F35;
     margin-top: 20px;
-    font-weight: 600;
 }
 
-/* Responsive */
+/* MOBILE */
 @media(max-width:768px){
     .products {
         flex-direction: column;
         align-items: center;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
     }
 }
