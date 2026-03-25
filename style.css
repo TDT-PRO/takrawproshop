@@ -17,13 +17,13 @@ body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(253,246,227,0.85); /* soft cream overlay */
+    background: rgba(253,246,227,0.85); /* soft orange overlay */
     z-index: -1; /* behind all content */
 }
 
 /* Header */
 header {
-    background: rgba(193,154,107,0.9); /* tan/beige */
+    background: rgba(193,154,107,0.9); /* yellow orange */
     color: #333;
     padding: 10px;
     text-align: center;
